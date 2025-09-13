@@ -1,0 +1,51 @@
+{
+  "services": [
+    {
+      "name": "hbbs",
+      "type": "docker",
+      "source": {
+        "image": "rustdesk/rustdesk-server:latest",
+        "command": "hbbs"
+      },
+      "ports": [
+        { "protocol": "TCP", "port": 21114 },
+        { "protocol": "TCP", "port": 21115 },
+        { "protocol": "TCP", "port": 21116 },
+        { "protocol": "UDP", "port": 21116 },
+        { "protocol": "TCP", "port": 21118 }
+      ],
+      "volumes": [
+        {
+          "mountPath": "/root",
+          "name": "rustdesk-data"
+        }
+      ],
+      "restartPolicy": "always"
+    },
+    {
+      "name": "hbbr",
+      "type": "docker",
+      "source": {
+        "image": "rustdesk/rustdesk-server:latest",
+        "command": "hbbr"
+      },
+      "ports": [
+        { "protocol": "TCP", "port": 21117 },
+        { "protocol": "TCP", "port": 21119 }
+      ],
+      "volumes": [
+        {
+          "mountPath": "/root",
+          "name": "rustdesk-data"
+        }
+      ],
+      "restartPolicy": "always"
+    }
+  ],
+  "volumes": [
+    {
+      "name": "rustdesk-data",
+      "type": "persistent"
+    }
+  ]
+}
